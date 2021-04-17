@@ -109,7 +109,7 @@ object<-plot(object,plot=FALSE,digits=3)
 pdf(file="Figure4.pdf",width=12,height=8)
 par(mfrow=c(1,2))
 plot(object,ftype="i",fsize=0.7,mar=c(3.1,2.1,3.1,1.1),
-	outline=TRUE)
+	outline=TRUE,digits=3)
 axis(1,at=round(seq(0,max(nodeHeights(tree)),length.out=5),2))
 mtext("a)",at=-1)
 par(mar=c(3.1,4.1,3.1,1.1))
@@ -215,6 +215,7 @@ for(i in 1:length(fits.z)){
 	else if(i==3) mtext(expression(paste("c) ",lambda,"= 1.0")),adj=0)
 	else if(i==4) mtext(expression(paste("d) ",lambda,"= 10")),adj=0)
 }
+dev.off()
 ## end Figure 7
 
 
