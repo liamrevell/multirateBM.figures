@@ -1,6 +1,14 @@
+library(phytools) ## should be phytools >= 0.7-76 https://github.com/liamrevell/phytools
+
+## function to compute geometric mean
 gmean<-function(x) exp(mean(log(x)))
 
 ## Figure 1
+## a) Simple phylogeny of five taxa with the total edge length (above each branch) and 
+## sigma^2 rates (below it). b) Calculation of the expected variance covariance matrix of tip 
+## values for the trait x, T, given the branch length and rates of panel a). Each i,jth element 
+## corresponds to the sum of the products above and below each edge along all the branches leading 
+## from the root to the common ancestor of taxa i and j.
 library(phytools)
 set.seed(88)
 tree<-pbtree(n=5,scale=10,tip.label=LETTERS[5:1])
@@ -40,6 +48,10 @@ dev.off()
 ## end Figure 1
 
 ## Figure 2
+## a) Simulated evolutionary rates, sigma^2, in which the logarithm of the rate of evolution 
+## evolves by Brownian motion on the tree. b) The phylogeny of panel a) projected into a space 
+## defined by time (on the horizontal axis) and a simulated trait vector, x, obtained using the 
+## rates of panel a).
 library(phytools)
 set.seed(77)
 tree<-pbtree(n=60)
@@ -68,6 +80,10 @@ dev.off()
 ## end Figure 2
 
 ## Figure 3
+## Estimated values of sigma^2 (y) compared to their known true values (x) for the data of Figure 
+## 2 obtained using the penalized-likelihood approach with four different values of the penalty 
+## term coefficient, lambda: a) lambda = 0.01; b) lambda = 0.1; c) lambda = 1; and d) lambda = 10. 
+## The 1:1 line is indicated.
 x<-x[tree$tip.label]
 lambda<-c(0.01,0.1,1.0,10.0)
 fits.x<-list()
@@ -92,6 +108,10 @@ dev.off()
 ## end Figure 3
 
 ## Figure 4
+## a) Simulated evolutionary rates, sigma^2, in which the logarithm of the rate of evolution 
+## is uncorrelated between nodes and tips on the phylogeny. b) The tree projected into a space 
+## defined by time (on the horizontal axis) and a simulated trait vector, x, obtained using the 
+## rates of panel a).
 library(phytools)
 set.seed(77)
 tree<-pbtree(n=60)
@@ -121,6 +141,10 @@ dev.off()
 ## end Figure 4
 
 ## Figure 5
+## Estimated values of sigma^2 (y) compared to their known true values (x) for the data of 
+## Figure 4 obtained using the penalized-likelihood approach using four different values of the 
+## penalty term coefficient, lambda: a) lambda = 0.01; b) lambda = 0.1; c) lambda = 1; and d) 
+## lambda = 10. The 1:1 line is indicated.
 lambda<-c(0.01,0.1,1.0,10.0)
 fits.y<-list()
 for(i in 1:length(lambda)) 
@@ -144,6 +168,9 @@ dev.off()
 ## end Figure 5
 
 ## Figure 6
+## a) Simulated evolutionary rates, sigma^2, in which rate of evolution shifts discretely under 
+## a continuous-time Markov process. b) The tree of panel a) projected into a space defined by time 
+## (on the horizontal axis) and a simulated trait vector, x, obtained using the rates of panel a).
 library(phytools)
 set.seed(77)
 tree<-pbtree(n=60)
@@ -189,6 +216,10 @@ dev.off()
 ## end Figure 6
 
 ## Figure 7
+## Estimated values of sigma^2 (y) compared to their known true values (x) for the data of 
+## Figure 6 obtained using the penalized-likelihood approach using four different values of the 
+## penalty term coefficient, lambda: a) lambda = 0.01; b) lambda = 0.1; c) lambda = 1; and d) 
+## lambda = 10. The 1:1 line is indicated.
 sig2z<-c(getStates(map,"tips"),getStates(map,"nodes"))
 sig2z<-setNames(setNames(c(0.1,1,10),1:3)[sig2z],names(sig2z))
 lambda<-c(0.01,0.1,1.0,10.0)
@@ -218,9 +249,11 @@ for(i in 1:length(fits.z)){
 dev.off()
 ## end Figure 7
 
-
-
 ## Figure 8
+## Estimated values of sigma^2 (y) compared to their known true values (x) for data simulated 
+## with a constant rate of evolution, sigma^2 = 1. Vertical and horizontal lines show the true 
+## rate of evolution from the simulation, and the Maximum Likelihood estimate of the rate obtained 
+## in a single-rate analysis.
 library(phytools)
 set.seed(77)
 tree<-pbtree(n=60)
@@ -257,10 +290,12 @@ for(i in 1:length(fits.zz)){
 dev.off()
 ## end Figure 8
 
-
+## Figure 9
+## Fitted variable-rate Brownian motion model for log(body mass) evolution in 49 species of 
+## mammals. Different values of lambda correspond to different penalty coefficients for rate 
+## variation among edges of the tree. Note that each panel has a different scale.
 data(mammal.tree)
 data(mammal.data)
-
 lnSize<-setNames(log(mammal.data$bodyMass),rownames(mammal.data))
 lambda<-c(0.01,0.1,1.0,10.0)
 fits.mammals<-list()
@@ -278,3 +313,5 @@ for(i in 1:length(fits.mammals)){
 	else if(i==4) mtext(expression(paste("d) ",lambda,"= 10")),adj=0)
 }
 dev.off()
+## end Figure 9
+
