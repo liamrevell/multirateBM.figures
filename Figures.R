@@ -89,8 +89,8 @@ lambda<-c(0.01,0.1,1.0,10.0)
 fits.x<-list()
 for(i in 1:length(lambda)) 
 	fits.x[[i]]<-multirateBM(tree,x,lambda=lambda[i])
-pdf(file="Figure3.pdf",width=8,height=8)
-par(mfrow=c(2,2))
+pdf(file="revision-Figure3.pdf",width=8,height=7)
+par(mfrow=c(2,2),mar=c(5.1,4.1,2.1,2.1))
 for(i in 1:length(fits.x)){
 	xylim<-range(c(sig2x,fits.x[[i]]$sig2))
 	plot(sig2x,fits.x[[i]]$sig2,log="xy",xlim=xylim,,
@@ -115,18 +115,17 @@ dev.off()
 library(phytools)
 set.seed(77)
 tree<-pbtree(n=60)
-set.seed(66)
-sig2y<-exp(rnorm(n=Ntip(tree)+tree$Nnode,sd=2.5))
+sig2y<-sample(exp(fastBM(tree,internal=TRUE)))
 tt<-tree
 tt$edge.length<-tt$edge.length*apply(tt$edge,1,
-    function(e,x) phytools::ln.mean(x[e]),x=sig2y)
+    function(e,x) phytools:::ln.mean(x[e]),x=sig2y)
 y<-fastBM(tt)
 object<-list()
 class(object)<-"multirateBM"
 object$sig2<-sig2y
 object$tree<-tree
 object<-plot(object,plot=FALSE,digits=3)
-pdf(file="Figure4.pdf",width=12,height=8)
+pdf(file="revision-Figure4.pdf",width=12,height=8)
 par(mfrow=c(1,2))
 plot(object,ftype="i",fsize=0.7,mar=c(3.1,2.1,3.1,1.1),
 	outline=TRUE,digits=3)
@@ -149,8 +148,8 @@ lambda<-c(0.01,0.1,1.0,10.0)
 fits.y<-list()
 for(i in 1:length(lambda)) 
 	fits.y[[i]]<-multirateBM(tree,y,lambda=lambda[i])
-pdf(file="Figure5.pdf",width=8,height=8)
-par(mfrow=c(2,2))
+pdf(file="revision-Figure5.pdf",width=8,height=7)
+par(mfrow=c(2,2),mar=c(5.1,4.1,2.1,2.1))
 for(i in 1:length(fits.y)){
 	xylim<-range(c(sig2y,fits.y[[i]]$sig2))
 	plot(sig2y,fits.y[[i]]$sig2,log="xy",xlim=xylim,,
@@ -226,8 +225,8 @@ lambda<-c(0.01,0.1,1.0,10.0)
 fits.z<-list()
 for(i in 1:length(lambda)) 
 	fits.z[[i]]<-multirateBM(tree,z,lambda=lambda[i])
-pdf(file="Figure7.pdf",width=8,height=8)
-par(mfrow=c(2,2))
+pdf(file="revision-Figure7.pdf",width=8,height=7)
+par(mfrow=c(2,2),mar=c(5.1,4.1,2.1,2.1))
 for(i in 1:length(fits.z)){
 	xylim<-range(c(sig2z,fits.z[[i]]$sig2))
 	plot(sig2z,fits.z[[i]]$sig2,log="xy",xlim=xylim,,
@@ -263,8 +262,8 @@ lambda<-c(0.01,0.1,1.0,10.0)
 fits.zz<-list()
 for(i in 1:length(lambda)) 
 	fits.zz[[i]]<-multirateBM(tree,zz,lambda=lambda[i])
-pdf(file="Figure8.pdf",width=8,height=8)
-par(mfrow=c(2,2))
+pdf(file="revision-Figure8.pdf",width=8,height=7)
+par(mfrow=c(2,2),mar=c(5.1,4.1,2.1,2.1))
 xylim<-range(c(1,sapply(fits.zz, function(x) x$sig2)))
 for(i in 1:length(fits.zz)){
 	plot(NA,log="xy",xlim=xylim,,
