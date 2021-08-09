@@ -210,7 +210,7 @@ legend("topleft",legend=c("","",
 par(mar=c(3.1,4.1,3.1,1.1))
 phenogram(map,z,colors=cols,
 	spread.cost=c(1,0),fsize=0.7,ftype="i",
-	xlab="")
+	las=1,xlab="",ylim=c(-5.25,6.25))
 mtext("b)",at=-0.5)
 dev.off()
 ## end Figure 6
