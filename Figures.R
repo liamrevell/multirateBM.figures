@@ -194,7 +194,7 @@ cols<-setNames(colorRampPalette(c("blue","red"))(3),1:3)
 plot(map)
 lastPP <- get("last_plot.phylo", envir = .PlotPhyloEnv)
 xlim<-c(-0.3, 1.05) * diff(lastPP$x.lim)
-pdf(file="Figure6.pdf",width=12,height=8)
+pdf(file="correction-Figure6.pdf",width=12,height=8)
 par(mfrow=c(1,2))
 plot(map,colors=cols,ftype="i",fsize=0.7,
 	mar=c(3.1,2.1,3.1,1.1),
@@ -211,6 +211,7 @@ par(mar=c(3.1,4.1,3.1,1.1))
 phenogram(map,z,colors=cols,
 	spread.cost=c(1,0),fsize=0.7,ftype="i",
 	xlab="")
+mtext("b)",at=-0.5)
 dev.off()
 ## end Figure 6
 
